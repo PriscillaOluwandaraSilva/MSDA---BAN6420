@@ -1,20 +1,20 @@
 # Highridge Construction Company Payment Slips
 
-## Overview
-This project generates payment slips for 400 workers using Python and R.
+## Summary
+Generating 400 workers payment slips using Python and R.
 
-## Files
-- `payment_slips.py` - Python script version
-- `payment_slips.R` - R script version
-- `sample_output/` - Folder where generated slips are saved
+## In the zip file;
+- `p_slips.py` - Python text version
+- `p_slips.R` - R text version
+- `sample output/` -  generated slips
 
-## How to Run (Python)
+## Running (Python)
 1. Ensure you have Python 3 installed.
 2. Open a terminal in this folder.
 3. Run: `python payment_slips.py`
 4. Slips will appear in the `sample_output/` folder.
 
-## How to Run (R)
+## Running (R)
 1. Ensure you have R installed.
 2. Open a terminal in this folder.
 3. Run: `Rscript payment_slips.R`
