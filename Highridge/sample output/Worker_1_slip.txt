@@ -1,0 +1,5 @@
+Payment Slip for Worker_1
+Salary: $13512
+Gender: Female
+Level: Example
+------------------------------

@@ -1,0 +1,5 @@
+Payment Slip for Worker_2
+Salary: $29050
+Gender: Male
+Level: Example
+------------------------------
