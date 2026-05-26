@@ -1,0 +1,67 @@
+# Import the pandas library for data manipulation
+import pandas as pd
+
+# Load the Kepler star dataset from CSV into a dataframe
+df = pd.read_csv('kepler_stars.csv')
+
+# Display the first 5 rows to confirm the data loaded correctly
+print(df.head())
+
+# Remove any rows with missing values to ensure clean data
+df = df.dropna()
+
+# Select the four stellar measurement columns to use as clustering features
+features = df[['koi_steff', 'koi_slogg', 'koi_srad', 'koi_kepmag']]
+
+# Print the number of rows and columns remaining after cleaning
+print(df.shape)
+
+# Import StandardScaler to normalise the feature columns
+from sklearn.preprocessing import StandardScaler
+
+# Standardise the features so no single variable dominates the distance calculation
+scaler = StandardScaler()
+features_scaled = scaler.fit_transform(features)
+
+print("Data standardised successfully")
+
+# Import KMeans from scikit-learn
+from sklearn.cluster import KMeans
+
+# Initialise and run KMeans with 3 clusters on the standardised data
+kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
+kmeans.fit(features_scaled)
+
+# Assign the cluster label for each star back into the dataframe
+df['cluster'] = kmeans.labels_
+
+# Print how many stars belong to each cluster
+print(df['cluster'].value_counts())
+
+# Print the centre point of each cluster in standardised space
+print("\nCluster centres:")
+print(kmeans.cluster_centers_)
+
+# Import matplotlib for visualisation
+import matplotlib.pyplot as plt
+
+# Create a scatter plot of temperature vs radius, coloured by cluster
+plt.figure(figsize=(10, 6))
+colors = ['red', 'blue', 'green']
+
+for cluster in range(3):
+    cluster_data = df[df['cluster'] == cluster]
+    plt.scatter(cluster_data['koi_steff'],
+                cluster_data['koi_srad'],
+                c=colors[cluster],
+                label=f'Cluster {cluster}',
+                alpha=0.5)
+
+# Label the axes and add a title and legend
+plt.xlabel('Stellar Temperature (K)')
+plt.ylabel('Stellar Radius')
+plt.title('K-Means Clustering of Kepler Stars')
+plt.legend()
+
+# Display the plot
+plt.show()
